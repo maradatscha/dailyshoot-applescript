@@ -31,8 +31,22 @@ to getShortUrl()
 end getShortUrl
 
 
-
-on open filelist
+on run
+	-- on open filelist
+	set returnVal to display dialog "Please enter your Flickr-email Subject" default answer "Dailyshoot script test Tags: dailyshoot"
+	set ok to the button returned of returnVal
+	if ok is not "OK" then
+		return
+	end if
+	set flickrSubject to the text returned of returnVal
+	
+	set returnVal to display dialog "Please enter your Tweet" default answer "@dailyshoot "
+	set ok to the button returned of returnVal
+	
+	if ok is not "OK" then
+		return
+	end if
+	set tweet to the text returned of returnVal
 	
 	-- get old short url
 	set oldUrl to getShortUrl()
@@ -42,7 +56,7 @@ on open filelist
 			set theAttachment to POSIX path of file_
 		end tell
 		tell application "Mail"
-			set theMessage to make new outgoing message with properties {visible:true, subject:"Dailyshoot script test Tags: dailyshoot ", content:"This is a small test of my dailyshoot script
+			set theMessage to make new outgoing message with properties {visible:true, subject:flickrSubject, content:"This is a small test of my dailyshoot script
 			"}
 			tell theMessage
 				make new to recipient at end of to recipients with properties {name:"Flickr", address:"flickr@maradatscha-ds.posterous.com"}
@@ -54,7 +68,7 @@ on open filelist
 			send theMessage
 		end tell
 	end repeat
-	delay 10
+	delay 100
 	
 	set newUrl to getShortUrl()
 	
@@ -66,9 +80,6 @@ on open filelist
 	end repeat
 	
 	
-	
-	
-	
 	set startDate to "15/11/2009"
 	set daysSinceStart to ((current date) - (date startDate)) div days as integer
 	set hashTag to "#ds" & daysSinceStart
@@ -76,7 +87,8 @@ on open filelist
 	
 	
 	tell application "Twitterrific"
-		post update "@dailyshoot " & newUrl & " " & hashTag
+		post update tweet&" "  & newUrl & " " & hashTag
 	end tell
 	
-end open
+	
+end run
