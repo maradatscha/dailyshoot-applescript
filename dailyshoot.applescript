@@ -45,7 +45,7 @@ on open filelist
 	if ok is not "OK" then
 		return
 	end if
-	set tweet to the text returned of returnVal
+	set myTweet to the text returned of returnVal
 	
 	-- get old short url
 	set oldUrl to getShortUrl()
@@ -71,7 +71,6 @@ on open filelist
 	
 	set newUrl to getShortUrl()
 	
-	
 	repeat while oldUrl = newUrl
 		delay 10
 		set newUrl to getShortUrl()
@@ -86,8 +85,9 @@ on open filelist
 	
 	
 	tell application "Twitterrific"
-		post update tweet & " " & newUrl & " " & hashTag
+		post update myTweet & " " & newUrl & " " & hashTag
 	end tell
+	
 	
 	
 end open
