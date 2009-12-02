@@ -31,9 +31,8 @@ to getShortUrl()
 end getShortUrl
 
 
-on run
-	-- on open filelist
-	set returnVal to display dialog "Please enter your Flickr-email Subject" default answer "Dailyshoot script test Tags: dailyshoot"
+on open filelist
+	set returnVal to display dialog "Please enter your Flickr-email Subject" default answer "todays dailyshoot Tags: dailyshoot"
 	set ok to the button returned of returnVal
 	if ok is not "OK" then
 		return
@@ -87,8 +86,8 @@ on run
 	
 	
 	tell application "Twitterrific"
-		post update tweet&" "  & newUrl & " " & hashTag
+		post update tweet & " " & newUrl & " " & hashTag
 	end tell
 	
 	
-end run
+end open
